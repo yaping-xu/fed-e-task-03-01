@@ -12,37 +12,11 @@ method: {
 ```
 - 内部原理是什么？
 this.$set()是将set函数绑定在Vue原型上
-```
-export function set(target: Array<any> | Object, key: any, val: any): any { 
- // target 为数组 
- if (Array.isArray(target) && isValidArrayIndex(key)) {   
-  // 修改数组的长度, 避免索引>数组长度导致splice()执行有误   
-   target.length = Math.max(target.length, key);   
-  // 利用数组的splice变异方法触发响应式   
-  target.splice(key, 1, val);  
-   return val; 
-  } 
-  // target为对象, key在target或者target.prototype上 且必须不能在 Object.prototype 上,直接赋值 
-    if (key in target && !(key in Object.prototype)) {    
-    target[key] = val;   
-    return val; 
- }  
- // 以上都不成立, 即开始给target创建一个全新的属性 
-  // 获取Observer实例 
-  const ob = (target: any).__ob__;  
-  // target 本身就不是响应式数据, 直接赋值 
-   if (!ob) {  
-     target[key] = val;  
-     return val;
-   }  
-   // 进行响应式处理
-     defineReactive(ob.value, key, val);
-     ob.dep.notify(); 
-      return val;
-  } 
-```
-如果目标是数组,使用 vue 实现的变异方法 splice 实现响应式
-如果目标是对象,判断属性存在,即为响应式,直接赋值
-如果 target 本身就不是响应式,直接赋值
-如果属性不是响应式,则调用 defineReactive 方法进行响应式处理
-最后 ob.dep.notify() ，通过notify来通知订阅者处理
+
+1. 如果目标是数组,使用 vue 实现的变异方法 splice 实现响应式
+2. 如果目标是对象,判断属性存在,即为响应式,直接赋值
+3. 如果 target 本身就不是响应式,直接赋值
+4. 如果属性不是响应式,则调用 defineReactive 方法进行响应式处理
+5. 最后 ob.dep.notify() ，通过notify来通知订阅者处理
+
+#### 请简述 Diff 算法的执行过程
