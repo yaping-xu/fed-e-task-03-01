@@ -20,3 +20,14 @@ this.$set()是将set函数绑定在Vue原型上
 5. 最后 ob.dep.notify() ，通过notify来通知订阅者处理
 
 #### 请简述 Diff 算法的执行过程
+- patch(oldVNode,newVNode)，对比新旧节点，最后返回新节点作为下一次处理的旧节点
+- 对比新旧节点的key和sel是否为相同，如果相同则为相同节点
+- 不同节点，删除重新渲染
+- 如果相同在判断newVNode是否有text，有并且和oldVNode不同直接更新文本内容到dom上
+- 如果newVNode有children，判断子节点是否有变化。
+- diff过程只是进行同层级比较，时间复杂度O(n)
+
+## 编程题
+#### 模拟 VueRouter 的 hash 模式的实现，实现思路和 History 模式类似，把 URL 中的 # 后面的内容作为路由的地址，可以通过 hashchange 事件监听路由地址的变化。
+#### 在模拟 Vue.js 响应式源码的基础上实现 v-html 指令，以及 v-on 指令。
+#### 参考 Snabbdom 提供的电影列表的示例，利用Snabbdom 实现类似的效果
