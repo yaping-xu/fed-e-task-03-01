@@ -28,6 +28,11 @@ this.$set()是将set函数绑定在Vue原型上
 - diff过程只是进行同层级比较，时间复杂度O(n)
 
 ## 编程题
-#### 模拟 VueRouter 的 hash 模式的实现，实现思路和 History 模式类似，把 URL 中的 # 后面的内容作为路由的地址，可以通过 hashchange 事件监听路由地址的变化。
-#### 在模拟 Vue.js 响应式源码的基础上实现 v-html 指令，以及 v-on 指令。
-#### 参考 Snabbdom 提供的电影列表的示例，利用Snabbdom 实现类似的效果
+#### [模拟 VueRouter 的 hash 模式的实现，实现思路和 History 模式类似，把 URL 中的 # 后面的内容作为路由的地址，可以通过 hashchange 事件监听路由地址的变化。](./code/hash-router/src/myrouter)
+#### [在模拟 Vue.js 响应式源码的基础上实现 v-html 指令，以及 v-on 指令。](./code/vueResponse/compiler.js)
+#### [参考 Snabbdom 提供的电影列表的示例，利用Snabbdom 实现类似的效果](./code/snabbdom/index.html)
+
+## 学习笔记
+- [vue响应式原理](https://juejin.cn/post/6916433672820228110/)
+- [vue-router](https://juejin.cn/post/6910002454713073672)
+- [虚拟dom](https://www.processon.com/diagraming/5ff2c7c85653bb21c1b8b9f0)
