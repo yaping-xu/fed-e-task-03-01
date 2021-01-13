@@ -25,6 +25,11 @@ class Compiler{
     // 遍历节点的属性
     Array.from(node.attributes).forEach(attr =>{
       let attrName = attr.name;
+      if(this.isEventNode(attrName)){
+        const eventName = attrName.slice(5)
+        let method = attr.value
+        this.onUpdate(node,eventName,method)
+      }
       if(this.isDirective(attrName)) {
         // 把 v-text 转成 text
         attrName = attrName.substr(2)
@@ -61,7 +66,17 @@ class Compiler{
 
   }
   htmlUpdate(node,value,key) {
-    console.log('htmlUpdate' ,node, value, key)
+    node.innerHTML = value
+
+    new Watcher (this.vm,key,(newValue)=>{
+      node.innerHTML = newValue
+    })
+  }
+
+  onUpdate(node,eventName,method) {
+    node.addEventListener(eventName, ()=>{
+      this.vm.$options.methods[method]()
+    })
   }
 
   // 编译文本节点，处理差值表达式
@@ -90,5 +105,9 @@ class Compiler{
   // 判断节点是否为元素节点
   isElementNode(node){
     return node.nodeType === 1;
+  }
+  // 判断元素属性是否为事件
+  isEventNode(attrName){
+    return (this.isDirective(attrName) && attrName.slice(2).startsWith('on'))
   }
 }

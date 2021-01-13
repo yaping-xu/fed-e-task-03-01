@@ -14,7 +14,6 @@ class Vue {
 
   _proxyData(data) {
     Object.keys(data).forEach((key) => {
-      console.log(data[key])
       // 把data属性注入到实例当中
       Object.defineProperty(this, key, {
         enumerable: true,

@@ -18,7 +18,7 @@
     <h1>v-html</h1>
     <div v-html="rawHtml"></div>
     <h1>v-on</h1>
-    <div></div>
+    <button v-on:click="doSomething">v-on</button>
   </div>
   <script src="./dep.js"></script>
   <script src="./watcher.js"></script>
@@ -32,7 +32,12 @@
         msg: 'Hello World',
         count: 20,
         rawHtml: '<span style="color:red">This should be red</span>'
-      }
+      },
+      methods: {
+        doSomething() {
+          console.log('doSomething');
+        }
+      },
     })
   </script>
 </body>
